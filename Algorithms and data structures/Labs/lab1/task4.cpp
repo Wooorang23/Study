@@ -2,36 +2,34 @@
 using namespace std;
 
 template <typename T>
-void pushBack(T * &arr, T elems[], int size, int len);
+void pushBack(T * &arr, T * &elems, size_t &size, size_t len);
 
 int main() {
-    int n = 5; 
-    int len = 4;
+    size_t n = 5; 
+    size_t len = 4;
 
     int *arr = new int [n] {1, 2, 3, 4, 5};
-    int elems[len] = {11, 6, 7, 85};
+    int *elems = new int [len] {11, 6, 7, 85};
     
     pushBack(arr, elems, n, len);
 
-    for (int i = 0; i < n + len; ++i) {
-        cout << arr[i] << endl;
-    } 
+    cout << n;
 }
 
 template <typename T>
-void pushBack(T * &arr, T elems[], int size, int len) {
-    int *newArr = new int [size + len];
+void pushBack(T * &arr, T * &elems, size_t &size, size_t len) {
+    T *newArr = new T [size + len];
 
-    int i = 0;
-    int j = 0;
+    size_t i = 0;
+    size_t j = 0;
 
-    while (i < size) {
+    while (i != size) {
         newArr[i] = arr[i];
 
         ++i;
     }
 
-    while (i < size + len) {
+    while (i != size + len) {
         newArr[i] = elems[j];
 
         ++i;
@@ -40,5 +38,6 @@ void pushBack(T * &arr, T elems[], int size, int len) {
 
     delete [] arr;
 
+    size += len;
     arr = newArr;
 }

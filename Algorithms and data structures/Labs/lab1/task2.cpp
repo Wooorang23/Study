@@ -2,24 +2,24 @@
 using namespace std;
 
 template <typename T>
-bool isFinded(T value, T pos, T arr[], T arrSize);
+bool isFinded(T value, size_t pos, T * &arr, size_t arrSize);
 
 template <typename T>
 void realloc(T * &arr, size_t size, size_t newSize);
 
 
 int main() {
-    int n = 5;
-    int m = 4;
-    int size = 0;
+    size_t n = 5;
+    size_t m = 4;
+    size_t size = 0;
 
-    int arr1[n] = {1, 1, 4, 4, 5};
-    int arr2[m] = {2, 3, 8, 7};
+    int *arr1 = new int [n] {1, 2, 4, 4, 5};
+    int *arr2 = new int [m] {2, 3, 8, 7};
 
     int *arr = new int[size];
 
-    for (int i = 0; i != n; ++i) {
-        if (!isFinded(arr1[i], i, arr2, m) && !isFinded(arr1[i], i + 1, arr1, n)) {
+    for (size_t i = 0; i != n; ++i) {
+        if (!isFinded(arr1[i], 0, arr2, m) && !isFinded(arr1[i], i + 1, arr1, n)) {
             realloc(arr, size, size + 1);
             arr[size] = arr1[i];
 
@@ -27,7 +27,7 @@ int main() {
         }
     }
 
-    for (int i = 0; i < size; ++i) {
+    for (size_t i = 0; i != size; ++i) {
         cout << arr[i] << endl;
     }
 
@@ -35,7 +35,7 @@ int main() {
 }
 
 template <typename T>
-bool isFinded(T value, T pos, T arr[], T arrSize) {
+bool isFinded(T value, size_t pos, T * &arr, size_t arrSize) {
     for (size_t i = pos; i != arrSize; ++i) {
         if (arr[i] == value) {
             return true;
@@ -50,8 +50,9 @@ void realloc(T * &arr, size_t size, size_t newSize) {
     T *new_arr = new T [newSize];
     size = newSize;
  
-    for (size_t i = 0; i < size; ++i)
+    for (size_t i = 0; i != size; ++i) {
         new_arr[i] = arr[i];
+    }
  
     delete [] arr;
  
